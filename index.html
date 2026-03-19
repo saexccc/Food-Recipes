@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Recipes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<section class="hero">
+
+<h1>Welcome to Global Recipes 🍳</h1>
+
+<p style="text-align: center;">
+Discover delicious dishes from around the world.
+Search by ingredients like onion, tomato, garlic, or butter
+and explore simple recipes you can cook at home.
+</p>
+
+<button class="start-btn" onclick="showRecipes()">Explore Recipes</button>
+
+</section>
+
+<div class="wrapper" id="recipes" style="display:none;">
+
+<div class="search-section">
+<input type="text" id="searchInput" placeholder="Search recipes..." onkeyup="searchRecipe()">
+</div>
+
+<h1>RECIPES</h1>
+
+<p class="subtitle">
+Simplify your search for global flavour. Filter by ingredient to find something savory!
+</p>
+
+<div class="filters">
+<button onclick="filterRecipes('onion')">Onion</button>
+<button onclick="filterRecipes('tomato')">Tomato</button>
+<button onclick="filterRecipes('pepper')">Pepper</button>
+<button onclick="filterRecipes('potato')">Potato</button>
+<button onclick="filterRecipes('egg')">Egg</button>
+<button onclick="filterRecipes('garlic')">Garlic</button>
+<button onclick="filterRecipes('butter')">Butter</button>
+<button onclick="showAll()">Show All</button>
+</div>
+
+<div class="recipe-container">
+
+<!-- ONION -->
+<div class="card" data-category="onion" onclick="openRecipe('onion1')">
+<img src="french.jpg">
+<h3>French Onion Soup</h3>
+</div>
+
+<div class="card" data-category="onion" onclick="openRecipe('onion2')">
+<img src="bloomon.jpg">
+<h3>Blooming Onion</h3>
+</div>
+
+<div class="card" data-category="onion" onclick="openRecipe('onion3')">
+<img src="onionring.jpg">
+<h3>Onion Rings</h3>
+</div>
+
+<!-- TOMATO -->
+<div class="card" data-category="tomato" onclick="openRecipe('tomato1')">
+<img src="TOMATO.JPG">
+<h3>Tomato Soup</h3>
+</div>
+
+<div class="card" data-category="tomato" onclick="openRecipe('tomato2')">
+<img src="bruschetta.jpg">
+<h3>Bruschetta</h3>
+</div>
+
+<div class="card" data-category="tomato" onclick="openRecipe('tomato3')">
+<img src="pasta.jpg">
+<h3>Tomato Pasta</h3>
+</div>
+
+<!-- PEPPER -->
+<div class="card" data-category="pepper" onclick="openRecipe('pepper1')">
+<img src="pepper.jpg">
+<h3>Stuffed Peppers</h3>
+</div>
+
+<div class="card" data-category="pepper" onclick="openRecipe('pepper2')">
+<img src="bell.jpg">
+<h3>Roasted Bell Peppers</h3>
+</div>
+
+<div class="card" data-category="pepper" onclick="openRecipe('pepper3')">
+<img src="stir.jpg">
+<h3>Pepper Stir Fry</h3>
+</div>
+
+<!-- POTATO -->
+<div class="card" data-category="potato" onclick="openRecipe('potato1')">
+<img src="fries.jpg">
+<h3>French Fries</h3>
+</div>
+
+<div class="card" data-category="potato" onclick="openRecipe('potato2')">
+<img src="pota.jpg">
+<h3>Mashed Potato</h3>
+</div>
+
+<div class="card" data-category="potato" onclick="openRecipe('potato3')">
+<img src="baked.jpg">
+<h3>Baked Potato</h3>
+</div>
+
+<!-- EGG -->
+<div class="card" data-category="egg" onclick="openRecipe('egg1')">
+<img src="scram.jpg">
+<h3>Scrambled Eggs</h3>
+</div>
+
+<div class="card" data-category="egg" onclick="openRecipe('egg2')">
+<img src="om.jpg">
+<h3>Omelette</h3>
+</div>
+
+<div class="card" data-category="egg" onclick="openRecipe('egg3')">
+<img src="egg.jpg">
+<h3>Egg Fried Rice</h3>
+</div>
+
+<!-- GARLIC -->
+<div class="card" data-category="garlic" onclick="openRecipe('garlic1')">
+<img src="gar.jpg">
+<h3>Garlic Bread</h3>
+</div>
+
+<div class="card" data-category="garlic" onclick="openRecipe('garlic2')">
+<img src="chi.jpg">
+<h3>Garlic Chicken</h3>
+</div>
+
+<div class="card" data-category="garlic" onclick="openRecipe('garlic3')">
+<img src="shri.jpg">
+<h3>Garlic Shrimp</h3>
+</div>
+
+<!-- BUTTER -->
+<div class="card" data-category="butter" onclick="openRecipe('butter1')">
+<img src="butt.jpg">
+<h3>Butter Chicken</h3>
+</div>
+
+<div class="card" data-category="butter" onclick="openRecipe('butter2')">
+<img src="coo.jpg">
+<h3>Butter Cookies</h3>
+</div>
+
+<div class="card" data-category="butter" onclick="openRecipe('butter3')">
+<img src="pan.jpg">
+<h3>Butter Pancakes</h3>
+</div>
+
+</div>
+</div>
+
+
+<!-- POPUP -->
+
+<div id="recipePopup">
+<div class="popup-content">
+
+<h2 id="recipeTitle"></h2>
+
+<h3>Ingredients</h3>
+<p id="recipeIngredients"></p>
+
+<h3>How to Make</h3>
+<p id="recipeSteps"></p>
+
+<button onclick="closeRecipe()">Close</button>
+
+</div>
+</div>
+
+
+<script>
+
+const recipes={
+
+onion1:{
+title:"French Onion Soup",
+ingredients:"4 onions, butter, beef broth, baguette, gruyère cheese, salt, pepper, thyme",
+steps:"Slice onions and cook slowly in butter until caramelized. Add broth and simmer. Place toasted bread and cheese on top and broil."
+},
+
+onion2:{
+title:"Blooming Onion",
+ingredients:"Large onion, flour, paprika, garlic powder, eggs, milk, oil",
+steps:"Cut onion into bloom shape, coat with batter, deep fry until crispy."
+},
+
+onion3:{
+title:"Onion Rings",
+ingredients:"Onions, flour, eggs, breadcrumbs, milk, oil, salt",
+steps:"Dip onion rings in flour, egg, breadcrumbs then fry until golden."
+},
+
+tomato1:{
+title:"Tomato Soup",
+ingredients:"Tomatoes, onion, garlic, olive oil, cream, salt, pepper",
+steps:"Cook onions and garlic, add tomatoes, simmer then blend and add cream."
+},
+
+tomato2:{
+title:"Bruschetta",
+ingredients:"Tomatoes, basil, garlic, olive oil, baguette, salt",
+steps:"Mix diced tomatoes with basil and garlic. Serve on toasted bread."
+},
+
+tomato3:{
+title:"Tomato Pasta",
+ingredients:"Pasta, tomatoes, garlic, olive oil, parmesan, basil",
+steps:"Cook pasta, sauté tomatoes and garlic, mix together and serve."
+},
+
+pepper1:{
+title:"Stuffed Peppers",
+ingredients:"Bell peppers, rice, ground meat, tomato sauce, onion, garlic, cheese",
+steps:"Fill peppers with rice and meat mixture then bake until tender."
+},
+
+pepper2:{
+title:"Roasted Bell Peppers",
+ingredients:"Bell peppers, olive oil, garlic, salt, pepper",
+steps:"Slice peppers and roast in oven until soft and slightly charred."
+},
+
+pepper3:{
+title:"Pepper Stir Fry",
+ingredients:"Bell peppers, soy sauce, garlic, onion, oil",
+steps:"Stir fry peppers with garlic and soy sauce until slightly tender."
+},
+
+potato1:{
+title:"French Fries",
+ingredients:"Potatoes, vegetable oil, salt, paprika",
+steps:"Cut potatoes into strips and fry until golden."
+},
+
+potato2:{
+title:"Mashed Potato",
+ingredients:"Potatoes, butter, milk, salt, pepper",
+steps:"Boil potatoes then mash with butter and milk."
+},
+
+potato3:{
+title:"Baked Potato",
+ingredients:"Potato, butter, sour cream, chives, salt",
+steps:"Bake potato until soft then add toppings."
+},
+
+egg1:{
+title:"Scrambled Eggs",
+ingredients:"Eggs, butter, milk, salt, pepper",
+steps:"Whisk eggs then cook slowly in butter while stirring."
+},
+
+egg2:{
+title:"Omelette",
+ingredients:"Eggs, cheese, vegetables, butter, salt, pepper",
+steps:"Cook beaten eggs in pan and fold with fillings."
+},
+
+egg3:{
+title:"Egg Fried Rice",
+ingredients:"Rice, eggs, soy sauce, green onion, oil",
+steps:"Cook eggs, add rice and stir fry with soy sauce."
+},
+
+garlic1:{
+title:"Garlic Bread",
+ingredients:"Bread, butter, garlic, parsley, salt",
+steps:"Spread garlic butter on bread and bake until crisp."
+},
+
+garlic2:{
+title:"Garlic Chicken",
+ingredients:"Chicken, garlic, soy sauce, olive oil, pepper",
+steps:"Cook chicken in pan with garlic sauce."
+},
+
+garlic3:{
+title:"Garlic Shrimp",
+ingredients:"Shrimp, garlic, butter, lemon juice, parsley",
+steps:"Sauté shrimp with garlic butter and lemon."
+},
+
+butter1:{
+title:"Butter Chicken",
+ingredients:"Chicken, butter, tomato sauce, cream, garlic, spices",
+steps:"Cook chicken then simmer in buttery tomato sauce."
+},
+
+butter2:{
+title:"Butter Cookies",
+ingredients:"Butter, sugar, flour, vanilla, egg",
+steps:"Mix ingredients, shape cookies and bake."
+},
+
+butter3:{
+title:"Butter Pancakes",
+ingredients:"Flour, butter, milk, eggs, sugar, baking powder",
+steps:"Mix batter and cook pancakes in buttered pan."
+}
+
+};
+
+
+function openRecipe(id){
+
+let recipe=recipes[id]
+
+document.getElementById("recipeTitle").innerText=recipe.title
+document.getElementById("recipeIngredients").innerText=recipe.ingredients
+document.getElementById("recipeSteps").innerText=recipe.steps
+
+document.getElementById("recipePopup").classList.add("active")
+
+}
+
+function closeRecipe(){
+document.getElementById("recipePopup").classList.remove("active")
+}
+
+document.getElementById("recipePopup").addEventListener("click",function(e){
+if(e.target.id==="recipePopup"){
+closeRecipe()
+}
+})
+
+function filterRecipes(category){
+
+let cards=document.querySelectorAll(".card")
+
+cards.forEach(card=>{
+card.style.display=card.getAttribute("data-category")==category?"block":"none"
+})
+
+}
+
+function showAll(){
+
+let cards=document.querySelectorAll(".card")
+cards.forEach(card=>card.style.display="block")
+
+}
+
+function searchRecipe(){
+
+let input=document.getElementById("searchInput").value.toLowerCase()
+let cards=document.querySelectorAll(".card")
+
+cards.forEach(card=>{
+
+let title=card.querySelector("h3").innerText.toLowerCase()
+card.style.display=title.includes(input)?"block":"none"
+
+})
+
+}
+function showRecipes(){
+
+document.getElementById("recipes").style.display = "block"
+
+window.scrollTo({
+top:document.getElementById("recipes").offsetTop,
+behavior:"smooth"
+})
+
+}
+
+</script>
+
+</body>
+</html>
